@@ -113,7 +113,7 @@ async function createCompany(customFieldValues, provinceCode) {
             "companyLocation": {
               "billingAddress": {
                 "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
-                "address2": customFieldValues.Number,
+                "address2": customFieldValues.Complement,
                 "city": customFieldValues.city,
                 "countryCode": "BR",
                 "firstName": customFieldValues.FirstName,
@@ -123,7 +123,7 @@ async function createCompany(customFieldValues, provinceCode) {
               },
               "shippingAddress": {
                 "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
-                "address2": customFieldValues.Number,
+                "address2": customFieldValues.Complement,
                 "city": customFieldValues.city,
                 "countryCode": "BR",
                 "firstName": customFieldValues.FirstName,
@@ -346,7 +346,7 @@ async function createIdUser(customFieldValues) {
               "last_name": customFieldValues.Trading_name,
               "company": customFieldValues.CNPJ,
               "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
-              "address2": customFieldValues.Number,
+              "address2": customFieldValues.Complement,
               "city": customFieldValues.city,
               "province": customFieldValues.UF,
               "country": "Brazil",
