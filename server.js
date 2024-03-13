@@ -112,7 +112,7 @@ async function createCompany(customFieldValues, provinceCode) {
             },
             "companyLocation": {
               "billingAddress": {
-                "address1": customFieldValues.Logradouro + " - " + customFieldValues.Number,
+                "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
                 "address2": customFieldValues.Number,
                 "city": customFieldValues.city,
                 "countryCode": "BR",
@@ -122,7 +122,7 @@ async function createCompany(customFieldValues, provinceCode) {
                 "zoneCode": provinceCode
               },
               "shippingAddress": {
-                "address1": customFieldValues.Logradouro + " - " + customFieldValues.Number,
+                "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
                 "address2": customFieldValues.Number,
                 "city": customFieldValues.city,
                 "countryCode": "BR",
@@ -345,7 +345,7 @@ async function createIdUser(customFieldValues) {
               "first_name": customFieldValues.FirstName,
               "last_name": customFieldValues.Trading_name,
               "company": customFieldValues.CNPJ,
-              "address1": customFieldValues.Logradouro + " - " + customFieldValues.Number,
+              "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
               "address2": customFieldValues.Number,
               "city": customFieldValues.city,
               "province": customFieldValues.UF,
