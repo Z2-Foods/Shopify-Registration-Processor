@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.get('/oauth/callback', (req, res) => {
     const authorizationCode = req.query.code;
+    console.log('authorizationCode', authorizationCode);
     res.send('Código de autorização recebido: ' + authorizationCode);
 });
 
