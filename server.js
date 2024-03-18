@@ -18,13 +18,26 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/oauth/callback', (req, res) => {
+app.get('/oauth/callback', async (req, res) => {
     const authorizationCode = req.query.code;
-    console.log('authorizationCode', authorizationCode);
-    console.log('Value Correct');
-    res.send('Código de autorização recebido: ' + authorizationCode);
-});
 
+    try {
+        const response = await axios.post('https://www.bling.com.br/Api/v3/oauth/token', {
+            grant_type: 'authorization_code',
+            code: authorizationCode,
+            client_id: process.env.client_id,
+            client_secret:  process.env.client_secret,
+            redirect_uri: 'https://shopify-registration-processor-production.up.railway.app/oauth/callback'
+        });
+
+        const accessToken = response.data.access_token;
+
+        res.send('Token de acesso recebido: ' + accessToken);
+    } catch (error) {
+        // Em caso de erro, envie uma resposta com o status de erro
+        res.status(500).send('Erro ao obter token de acesso');
+    }
+});
 async function assignCompany(CompanyID, CustomerID) {
   try {
     const response = await axios.post(
