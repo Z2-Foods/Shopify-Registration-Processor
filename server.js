@@ -18,6 +18,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/oauth/callback', (req, res) => {
+    const authorizationCode = req.query.code;
+    res.send('Código de autorização recebido: ' + authorizationCode);
+});
+
 async function assignCompany(CompanyID, CustomerID) {
   try {
     const response = await axios.post(
