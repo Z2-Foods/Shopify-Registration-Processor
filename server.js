@@ -131,6 +131,7 @@ async function createCompany(customFieldValues, provinceCode) {
               "name": customFieldValues.FirstName
             },
             "companyLocation": {
+              "name": customFieldValues.FirstName,
               "billingAddress": {
                 "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
                 "address2": customFieldValues.Complement,
