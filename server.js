@@ -1,3 +1,7 @@
+// This script integrates with Shopify's API to handle customer registration and related tasks.
+// Ensure you have set up environment variables for Shopify credentials such as shopifyStore, apiVersion, accessToken, storefrontAccessToken, and userPass.
+
+// Import necessary dependencies
 const axios = require('axios');
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
@@ -18,6 +22,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Function to assign a customer to a company in Shopify
 async function assignCompany(CompanyID, CustomerID) {
   try {
     const response = await axios.post(
@@ -69,7 +74,7 @@ async function assignCompany(CompanyID, CustomerID) {
   }
 }
 
-// Handle POST requests to the endpoint
+// Handle POST requests to the endpoint for processing Shopify registration
 app.post('/process-shopify-registration', async (req, res) => {
   const customFieldValues = req.body.customer;
   const customMetafieldsValues = req.body.metafield;
@@ -85,6 +90,7 @@ app.post('/process-shopify-registration', async (req, res) => {
   }
 });
 
+// Function to create a company in Shopify
 async function createCompany(customFieldValues, provinceCode) {
   try {
     const response = await axios.post(
@@ -175,9 +181,11 @@ async function createCompany(customFieldValues, provinceCode) {
     throw error;
   }
 }
-  
+
+// Function to create a customer in Shopify
 async function createIdUser(customFieldValues) {
   try {    
+    // Make a POST request to Shopify's GraphQL endpoint to create a customer
     const response = await fetch(`https://${shopifyStore}/api/${apiVersion}/graphql.json`, {
       method: 'POST',
       headers: {
@@ -231,14 +239,15 @@ async function createIdUser(customFieldValues) {
 }
 
 
-  // Function to perform a PUT request to update metafields
+  // Function to update customer metafields in Shopify
   async function updateMetafields(customFieldValues, customMetafieldsValues) {
     try {
-      // Keys to search for in metafields
-      const keysToSearch = ["tipo", "marca", "canal", "estadual"];
+      
+      const keysToSearch = ["tipo", "marca", "canal", "estadual"]; // Keys to search for in metafields
+  
+      let provinceCode = ''; // Determine province code based on UF value
 
-      let provinceCode = '';
-
+      // Cases for different UF values
       switch (customFieldValues.UF) {
         case 'Acre':
           provinceCode = 'AC';
@@ -325,10 +334,9 @@ async function createIdUser(customFieldValues) {
           // Handle other cases or set a default value
           break;
       }
-
-      const customerId = await createIdUser(customFieldValues);  
-
       
+      // Create a new customer and company in Shopify
+      const customerId = await createIdUser(customFieldValues);  
       if (customFieldValues !== undefined && provinceCode !== undefined) {
         const companyId = await createCompany(customFieldValues, provinceCode); 
         const result = await assignCompany(companyId, customerId);
@@ -336,7 +344,8 @@ async function createIdUser(customFieldValues) {
         // Handle the case where either companyId or provinceCode is undefined
         console.log("customFieldValues or provinceCode is undefined");
       }
-    
+
+      // Make a PUT request to update customer details and metafields in Shopify
       const response = await axios.put(`https://${shopifyStore}/admin/api/${apiVersion}/customers/${customerId}.json`, {
         "customer": {
           "addresses": [
