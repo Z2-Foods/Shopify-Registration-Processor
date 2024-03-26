@@ -352,7 +352,7 @@ async function createIdUser(customFieldValues) {
             {
               "customer_id": customerId,
               "first_name": customFieldValues.FirstName,
-              "last_name": customFieldValues.Trading_name,
+              "last_name": "",
               "company": customFieldValues.CNPJ,
               "address1": customFieldValues.Logradouro + ", " + customFieldValues.Number,
               "address2": customFieldValues.Complement,
