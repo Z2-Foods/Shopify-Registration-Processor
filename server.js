@@ -140,7 +140,7 @@ async function createCompany(customFieldValues, provinceCode) {
               
               "billingSameAsShipping": false,
               "buyerExperienceConfiguration": {
-                "checkoutToDraft": true
+                "checkoutToDraft": false
               },
               "externalId": "",
               "locale": "pt_BR",
