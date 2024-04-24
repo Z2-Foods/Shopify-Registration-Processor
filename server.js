@@ -114,7 +114,7 @@ async function createCompany(customFieldValues, provinceCode) {
           "input": {
             "company": {
               "externalId": "",
-              "name": customFieldValues.FirstName
+              "name": customFieldValues.CNPJ
             },
             "companyLocation": {
               "billingAddress": {
