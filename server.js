@@ -208,8 +208,8 @@ async function createIdUser(customFieldValues) {
         `,
         variables: {
           input: {
-            "firstName": customFieldValues.FirstName,
-            "lastName": customFieldValues.trading_name,
+            "firstName": "",
+            "lastName": customFieldValues.FirstName,
             "email": customFieldValues.Email,
             "password": userPass,
             "acceptsMarketing": true
