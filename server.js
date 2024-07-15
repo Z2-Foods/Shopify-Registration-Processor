@@ -219,9 +219,8 @@ async function createIdUser(customFieldValues) {
     });
 
     const responseData = await response.json();
+    console.log('customFieldValues:', customFieldValues);
     console.log('responseData.data:', responseData.data);
-    console.log('responseData.data:', responseData.data.customerCreate);
-    console.log('responseData.data:', responseData.data.customerCreate.customer);
     
     // Check if the response is successful and contains customer ID
     if (responseData.data && responseData.data.customerCreate && responseData.data.customerCreate.customer) {
